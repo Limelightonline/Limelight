@@ -1,0 +1,178 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php
+/**
+ * Template for displaying new products widget
+ *
+ * @var $block \Magento\Catalog\Block\Product\Widget\NewWidget
+ */
+if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getItems())) {
+    $type = 'widget-new-grid';
+
+    $mode = 'grid';
+    $widgetType = $block->getProductTypes();
+
+    $image = 'category_page_grid';
+    $title = $block->getTitle();
+    $items = $block->getProductCollection()->getItems();
+    $label = $block->getWidgetLabel();
+    $isCarousel = $block->getShowCarousel();
+    $visibleCarousel = $block->getNumberToDisplay();
+    $productItemWidth = $block->getItemWidth();
+    $cssClass = $block->getCssClass();
+
+    $showReviews = [
+        'new_product'         => true,
+        'sale_product'        => true,
+        'viewed_product'      => false,
+        'bestsellers_product' => false,
+        'rated_product'       => true,
+        'manual_product'      => false
+    ];
+
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    $description = false;
+
+
+    $productItemWidthCustom = '';
+    $cssClassRow = '';
+    $productPerRow = $block->getNumberPerRow();
+    if ($productPerRow) {
+        if (!$isCarousel) {
+            $productItemWidthCustom =  100 / $productPerRow;
+        }
+    }
+    if ($isCarousel) {
+        $cssClassRow =  "row";
+    }
+}
+?>
+<!-- <script>
+    require([
+        'jquery'
+    ], function ($) {
+    });
+</script>
+-->
+
+<?php if ($exist):?>
+
+    <div class="block widget featured <?php /* @escapeNotVerified */ echo $mode; ?> <?php /* @escapeNotVerified */ echo $widgetType; ?> <?php /* @escapeNotVerified */ echo $cssClass; ?>">
+        <style>
+            .featured .products-grid .product-item {
+                flex-basis: <?php echo $productItemWidthCustom; ?>%;
+                max-width: <?php echo $productItemWidthCustom;  ?>%;
+            }
+        </style>
+        <h1 class="page-title">
+            <strong role="heading" aria-level="2"><?php /* @escapeNotVerified */ echo __($title); ?></strong>
+        </h1>
+        <div class="block-content<?php echo $productItemWidth ? ' custom-columns' : '' ?>">
+            <div class="products-<?php /* @escapeNotVerified */ echo $mode; ?> <?php /* @escapeNotVerified */ echo $mode; ?> products <?php /* @escapeNotVerified */ echo $cssClassRow; ?>  ">
+                <div class="product-items <?php /* @escapeNotVerified */ echo $type; ?>"
+                     <?php if ($isCarousel): ?>
+                        data-mage-init='{"faeturedCarouselTheme": {"items": "<?php /* @escapeNotVerified */ echo $visibleCarousel; ?>"}}'
+                     <?php endif; ?>>
+                     <?php $iterator = 1; ?>
+                     <?php foreach ($items as $_item): ?>
+                         <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<div class="product-item"' . '>' : '</div><div class="product-item">' ?>
+
+                         <div class="product-item-info" itemscope itemtype="//schema.org/product">
+                             <?php /* @escapeNotVerified */ echo ($block->getShowLabel()) ? '<span class="product-label ' . $label . '">' . $label . '</span>' : ''; ?>
+                             <a href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($_item) ?>" class="product-item-photo" itemprop="url">
+                                <?php echo $block->getImage($_item, $image)->toHtml(); ?>
+                             </a>
+                             <div class="product-item-details">
+                                 
+                                 <strong class="product-item-name" itemprop="name">
+                                     <a title="<?php echo $block->escapeHtml($_item->getName()) ?>"
+                                       href="<?php /* @escapeNotVerified */ echo $block->getProductUrl($_item) ?>"
+                                       class="product-item-link">
+                                         <?php echo $block->truncateProductName($_item->getName()); ?>
+                                     </a>
+                                 </strong>
+                                 <div class="product-h1hs">
+                                 <div class="product-h1s">
+								 <?php echo /* @escapeNotVerified */ $block->getProductPriceHtml($_item, $type); ?>
+                                 </div>
+                                <?php if ($showWishlist || $showCompare || $showCart): ?>
+                                   <div class="product-h2s">
+                                    <div class="product-item-actions">
+                                        <?php if ($showCart): ?>
+                                            <div class="actions-primary">
+                                                <?php if ($_item->isSaleable()): ?>
+                                                    <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+                                                        <button class="action tocart primary"
+                                                                data-mage-init='{"redirectUrl":{"url":"<?php /* @escapeNotVerified */ echo $block->getAddToCartUrl($_item) ?>"}}'
+                                                                type="button" title="<?php /* @escapeNotVerified */ echo __('Add to Cart') ?>">
+                                                            <span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+                                                        </button>
+                                                    <?php else: ?>
+                                                        <?php
+                                                        $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+                                                        $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
+                                                        ?>
+                                                        <button class="action tocart primary"
+                                                                data-post='<?php /* @escapeNotVerified */ echo $postData; ?>'
+                                                                type="button" title="<?php /* @escapeNotVerified */ echo __('Add to Cart') ?>">
+                                                            <span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                <?php else: ?>
+                                                    <?php if ($_item->getIsSalable()): ?>
+                                                        <div class="stock available"><span><?php /* @escapeNotVerified */ echo __('In stock') ?></span></div>
+                                                    <?php else: ?>
+                                                        <div class="stock unavailable"><span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span></div>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($templateType): ?>
+                                            <?php echo $block->getReviewsSummaryHtml($_item, $templateType, $showReviews[$widgetType]) ?>
+                                        <?php endif; ?>
+                                        <?php if ($showWishlist || $showCompare): ?>
+                                            <div class="actions-secondary" data-role="add-to-links">
+                                                <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow() && $showWishlist): ?>
+                                                    <a href="#"
+                                                       data-post='<?php /* @escapeNotVerified */ echo $block->getAddToWishlistParams($_item); ?>'
+                                                       class="action towishlist" data-action="add-to-wishlist"
+                                                       title="<?php /* @escapeNotVerified */ echo __('Add to Wish List') ?>">
+                                                        <span><?php /* @escapeNotVerified */ echo __('Add to Wish List') ?></span>
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if ($block->getAddToCompareUrl() && $showCompare): ?>
+                                                    <?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');?>
+                                                    <a href="#" class="action tocompare"
+                                                       data-post='<?php /* @escapeNotVerified */ echo $compareHelper->getPostDataParams($_item);?>'
+                                                       title="<?php /* @escapeNotVerified */ echo __('Add to Compare') ?>">
+                                                        <span><?php /* @escapeNotVerified */ echo __('Add to Compare') ?></span>
+                                                    </a>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                     </div>
+                                       </div>
+                                <?php endif; ?>
+                                
+                            </div>
+                        </div>
+                        <?php echo($iterator == count($items)+1) ? '</div>' : '' ?>
+                    <?php endforeach ?>
+                </div>
+            </div>
+            <?php echo $block->getPagerHtml() ?>
+        </div>
+    </div>
+<?php endif;?>

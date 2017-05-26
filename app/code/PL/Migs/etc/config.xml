@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <migs>
+                <active>1</active>
+                <model>PL\Migs\Model\Migs</model>
+                <payment_action>authorize_capture</payment_action>
+                <title>CommWeb (Credit Card)</title>
+                <cctypes>VI,MC</cctypes>
+                <allowspecific>0</allowspecific>
+            </migs>
+            <migs_hosted>
+                <active>1</active>
+                <model>PL\Migs\Model\Hosted</model>
+                <use_3d>0</use_3d>
+                <secure_hash_type>MD5</secure_hash_type>
+                <title>CommWeb Hosted Server</title>
+                <payment_action>order</payment_action>
+                <allowspecific>0</allowspecific>
+            </migs_hosted>
+        </payment>
+    </default>
+</config>

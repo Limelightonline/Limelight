@@ -1,0 +1,355 @@
+<?xml version="1.0"?>
+<!--Options from http://igorlino.github.io/elevatezoom-plus/api.htm plugin -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="templatemonster">
+            <label>TemplateMonster</label>
+        </tab>
+        <section id="imagezoom" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Image Zoom</label>
+            <tab>templatemonster</tab>
+            <resource>TemplateMonster_ImageZoom::imagezoom_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Image Zoom Settings</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <comment>Turn on to enable the module.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="zoomType" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Zoom Type</label>
+                    <comment>Select zoom type.</comment>
+                    <source_model>TemplateMonster\ImageZoom\Model\Config\Source\ZoomType</source_model>
+                </field>
+
+                <!--&lt;!&ndash; zoomLens - original js plugin config name &ndash;&gt;-->
+                <!--<field id="zoomLens" translate="label comment" type="select" sortOrder="30" showInDefault="1"-->
+                       <!--showInWebsite="1" showInStore="1">-->
+                    <!--<label>Show lens</label>-->
+                    <!--<comment>Set to false to hide the Lens.</comment>-->
+                    <!--<source_model>TemplateMonster\ImageZoom\Model\Config\Source\TrueFalse</source_model>-->
+                <!--</field>-->
+
+                <!--<field id="lenszoom" translate="label comment" type="select" sortOrder="40" showInDefault="1"-->
+                       <!--showInWebsite="1" showInStore="1">-->
+                    <!--<label>Lens Zoom</label>-->
+                    <!--<comment>Constrain lens zoom.</comment>-->
+                    <!--<source_model>TemplateMonster\ImageZoom\Model\Config\Source\TrueFalse</source_model>-->
+                    <!--<depends>-->
+                        <!--<field id="zoomLens">1</field>-->
+                    <!--</depends>-->
+                <!--</field>-->
+
+                <field id="lensShape" translate="label comment" type="select" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Lens Shape</label>
+                    <comment>Select lens shape.</comment>
+                    <source_model>TemplateMonster\ImageZoom\Model\Config\Source\LensShape</source_model>
+                </field>
+
+                <field id="lensFadeIn" translate="label comment" type="text" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Lens fade in.</label>
+                    <comment>Set lens fade in speed. </comment>
+                </field>
+
+                <field id="lensFadeOut" translate="label comment" type="text" sortOrder="70" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Lens fade out.</label>
+                    <comment>Set lens fade out speed. </comment>
+                </field>
+
+                <field id="lensSize" translate="label comment" type="text" sortOrder="80" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Lens Size</label>
+                    <comment>Lens size in pixels. (In window mode, lens border-radius equals lensSize/2) </comment>
+                </field>
+
+                <field id="containLensZoom" translate="label comment" type="select" sortOrder="100" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Contain Lens Zoom</label>
+                    <comment>This makes sure the lens does not fall outside of the image.</comment>
+                    <source_model>TemplateMonster\ImageZoom\Model\Config\Source\TrueFalse</source_model>
+                    <depends>
+                        <field id="zoomType">0</field>
+                    </depends>
+                </field>
+
+                <!-- Window Mode -->
+                <group id="windowgroup" translate="label" type="text" sortOrder="130" showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Window Mode</label>
+                    <depends>
+                        <field id="imagezoom/general/zoomType">1</field>
+                    </depends>
+
+                    <field id="lensBorderSize" translate="label comment" type="text" sortOrder="10" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Lens Border</label>
+                        <comment>Set lens border width.</comment>
+                        <depends>
+                            <field id="zoomType">1</field>
+                        </depends>
+                    </field>
+
+                    <!-- original js option lensColour -->
+                    <field id="lensBorderColour" translate="label comment" type="text" sortOrder="20" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Lens border color</label>
+                        <comment>Set lens border color.</comment>
+                        <frontend_model>TemplateMonster\ImageZoom\Block\Adminhtml\System\Config\Field\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="zoomType">1</field>
+                        </depends>
+                    </field>
+
+                    <!-- original js option lensColour -->
+                    <field id="lensColour" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Lens color</label>
+                        <comment>Set lens background color.</comment>
+                        <frontend_model>TemplateMonster\ImageZoom\Block\Adminhtml\System\Config\Field\ColorPicker</frontend_model>
+                        <depends>
+                            <field id="zoomType">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="lensOpacity" translate="label comment" type="text" sortOrder="40" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Lens opacity</label>
+                        <comment>Set lens background opacity.</comment>
+                        <depends>
+                            <field id="zoomType">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="zoomWindowWidth" translate="label comment" type="text" sortOrder="50" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Zoom window width.</label>
+                        <comment>Zoom window width in pixels. (Make sure the value is greater than product
+                            main image dimensions.)</comment>
+                    </field>
+
+                    <field id="zoomWindowHeight" translate="label comment" type="text" sortOrder="60" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Zoom window height.</label>
+                        <comment>Zoom window height in pixels. (Make sure the value is greater than product
+                            main image dimensions.)</comment>
+                    </field>
+
+                    <field id="zoomWindowPosition" translate="label comment" type="text" sortOrder="70" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Zoom window position</label>
+                        <comment>Option will work only if zoom window width/height are larger than product main image
+                            dimensions. Use position id from the
+                            above image. Once positioned, use "X-axis offset" and "Y-axis
+                            offset" to adjust. (Please note: some positions may not work correctly if zoom window
+                            dimensions are less than main image container width and height.)
+                        </comment>
+                        <frontend_model>TemplateMonster\ImageZoom\Block\Adminhtml\System\Config\Field\WindowPosition</frontend_model>
+                    </field>
+
+                    <field id="zoomWindowOffsetX" translate="label comment" type="text" sortOrder="80" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>X-axis offset</label>
+                        <comment>x-axis offset of the zoom window. </comment>
+                    </field>
+
+                    <field id="zoomWindowOffsetY" translate="label comment" type="text" sortOrder="90" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Y-axis offset</label>
+                        <comment>y-axis offset of the zoom window. </comment>
+                    </field>
+
+                    <field id="zoomWindowFadeIn" translate="label comment" type="text" sortOrder="100" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Window fade in.</label>
+                        <comment>Set window fade in speed. </comment>
+                    </field>
+
+                    <field id="zoomWindowFadeOut" translate="label comment" type="text" sortOrder="110" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Window fade out.</label>
+                        <comment>Set window fade out speed. </comment>
+                    </field>
+
+                    <field id="easing" translate="label comment" type="select" sortOrder="120" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Easing</label>
+                        <comment>Set to true to activate easing. (Can be used with Window zoom type only.)</comment>
+                        <source_model>TemplateMonster\ImageZoom\Model\Config\Source\TrueFalse</source_model>
+                    </field>
+
+                    <field id="easingAmount" translate="label comment" type="text" sortOrder="130" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Easing Amount</label>
+                        <comment>Select easing effect intensity. </comment>
+                        <depends>
+                            <field id="imagezoom/general/windowgroup/easing">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="tint" translate="label comment" type="select" sortOrder="140" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Tint</label>
+                        <comment>Activate tint. (Can be used with Window zoom type only.)</comment>
+                        <source_model>TemplateMonster\ImageZoom\Model\Config\Source\TrueFalse</source_model>
+                    </field>
+
+                    <!-- original js option tintColour -->
+                    <field id="tintColour" translate="label comment" type="text" sortOrder="150" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Tint color</label>
+                        <comment>Set tint background opacity.</comment>
+                        <depends>
+                            <field id="imagezoom/general/windowgroup/tint">1</field>
+                        </depends>
+                        <frontend_model>TemplateMonster\ImageZoom\Block\Adminhtml\System\Config\Field\ColorPicker</frontend_model>
+                    </field>
+
+                    <field id="tintOpacity" translate="label comment" type="text" sortOrder="160" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Tint opacity</label>
+                        <comment>Set tint opacity.</comment>
+                        <depends>
+                            <field id="imagezoom/general/windowgroup/tint">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="zoomTintFadeIn" translate="label comment" type="text" sortOrder="170" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Tint fade in.</label>
+                        <comment>Set tint fade in speed. </comment>
+                        <depends>
+                            <field id="imagezoom/general/windowgroup/tint">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="zoomTintFadeOut" translate="label comment" type="text" sortOrder="180" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Tint fade out.</label>
+                        <comment>Set tint fade out speed. </comment>
+                        <depends>
+                            <field id="imagezoom/general/windowgroup/tint">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <field id="responsive" translate="label comment" type="select" sortOrder="140" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Responsive</label>
+                    <comment>Set to true to activate responsivenes.</comment>
+                    <source_model>TemplateMonster\ImageZoom\Model\Config\Source\TrueFalse</source_model>
+                </field>
+
+                <field id="scrollZoom" translate="label comment" type="select" sortOrder="150" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Scroll Zoom</label>
+                    <comment>Set to true to activate zoom on mouse scroll.</comment>
+                    <source_model>TemplateMonster\ImageZoom\Model\Config\Source\TrueFalse</source_model>
+                </field>
+
+                <field id="imageCrossfade" translate="label comment" type="select" sortOrder="160" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Image Cross Fade</label>
+                    <comment>Set to true to activate simultaneous crossfade of images on gallery change. </comment>
+                    <source_model>TemplateMonster\ImageZoom\Model\Config\Source\TrueFalse</source_model>
+                </field>
+
+                <field id="showLoadingIcon" translate="label comment" type="select" sortOrder="170" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Show loading icon</label>
+                    <comment>Set to true to show loading icon. </comment>
+                    <source_model>TemplateMonster\ImageZoom\Model\Config\Source\TrueFalse</source_model>
+                </field>
+
+                <field id="loadingIcon" translate="label" type="file" sortOrder="180" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Loading Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\File</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">imagezoom_loader</upload_dir>
+                    <base_url type="media" scope_info="1">imagezoom_loader</base_url>
+                    <comment>Select loading icon. </comment>
+                    <depends>
+                        <field id="showLoadingIcon">1</field>
+                    </depends>
+                </field>
+
+                <field id="cursor" translate="label comment" type="text" sortOrder="190" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Cursor</label>
+                    <comment>Select cursor type. Learn more at http://www.w3schools.com/cssref/pr_class_cursor.asp</comment>
+                </field>
+
+                <field id="borderSize" translate="label comment" type="text" sortOrder="200" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                    <label>Border Size</label>
+                    <comment>Border Size of the zoom window.</comment>
+                </field>
+
+                <!-- original js option borderColour -->
+                <field id="borderColour" translate="label comment" type="text" sortOrder="210" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Border Color</label>
+                    <comment>Set zoom window border color.</comment>
+                    <frontend_model>TemplateMonster\ImageZoom\Block\Adminhtml\System\Config\Field\ColorPicker</frontend_model>
+                </field>
+
+                <field id="gallery" translate="label comment" type="text" sortOrder="220" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Gallery selector</label>
+                    <comment>Input gallery ID selector.</comment>
+                </field>
+
+                <field id="responsiveRange" translate="label comment" type="text" sortOrder="230" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Responsive range</label>
+                    <comment>Specify the window width range for responsive behaviour. For example: 220-900</comment>
+                </field>
+
+                <field id="zIndex" translate="label comment" type="text" sortOrder="240" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>zIndex</label>
+                </field>
+
+                <field id="zoomBackground" translate="label comment" type="text" sortOrder="250" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Zoom background</label>
+                    <comment>Background color used for transparent images</comment>
+                </field>
+
+                <!-- Easing -->
+                <!--<group id="easinggroup" translate="label" type="text" sortOrder="250" showInDefault="1"-->
+                       <!--showInWebsite="1"-->
+                       <!--showInStore="1">-->
+                    <!--<label>Easing</label>-->
+                    <!--<comment>Can be used with Window zoom type only.</comment>-->
+
+                    <!--<depends>-->
+                        <!--<field id="imagezoom/general/easing">1</field>-->
+                    <!--</depends>-->
+
+                    <!--<field id="easingType" translate="label comment" type="select" sortOrder="20" showInDefault="1"-->
+                           <!--showInWebsite="1" showInStore="1">-->
+                        <!--<label>Easing Type</label>-->
+                        <!--<comment>Select easing animation type. Learn more at http://api.jqueryui.com/easings/</comment>-->
+                        <!--<source_model>TemplateMonster\ImageZoom\Model\Config\Source\EasingTypes</source_model>-->
+                    <!--</field>-->
+
+                    <!--<field id="easingDuration" translate="label comment" type="text" sortOrder="30" showInDefault="1"-->
+                           <!--showInWebsite="1" showInStore="1">-->
+                        <!--<label>Easing Duration</label>-->
+                        <!--<comment>Select easing duration in milliseconds. </comment>-->
+                    <!--</field>-->
+                <!--</group>-->
+
+
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+<type name="PL\Migs\Logger\Handler\PLDebug">
+    <arguments>
+        <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+    </arguments>
+</type>
+
+<type name="PL\Migs\Logger\Handler\PLResult">
+    <arguments>
+        <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+    </arguments>
+</type>
+
+<type name="PL\Migs\Logger\Handler\PLInfo">
+    <arguments>
+        <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+    </arguments>
+</type>
+<type name="PL\Migs\Logger\Handler\PLError">
+    <arguments>
+        <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+    </arguments>
+</type>
+<type name="PL\Migs\Logger\PLLogger">
+    <arguments>
+        <argument name="name" xsi:type="string">PLLoggerTest</argument>
+        <argument name="handlers"  xsi:type="array">
+            <item name="plDebug" xsi:type="object">PL\Migs\Logger\Handler\PLDebug</item>
+            <item name="plResult" xsi:type="object">PL\Migs\Logger\Handler\PLResult</item>
+            <item name="plInfo" xsi:type="object">PL\Migs\Logger\Handler\PLInfo</item>
+            <item name="plError" xsi:type="object">PL\Migs\Logger\Handler\PLError</item>
+        </argument>
+    </arguments>
+</type>
+
+</config>

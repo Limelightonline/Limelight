@@ -1,0 +1,13 @@
+{
+    "name": "templatemonster/module-imagezoom",
+    "type": "magento2-module",
+    "version": "1.0.4",
+    "autoload": {
+        "psr-4": {"TemplateMonster\\ImageZoom\\":""},
+        "files": [ "registration.php" ]
+    },
+    "extra": {
+        "isStandalone": "false",
+        "magentoVersion": "v2.1.0" 
+    }
+}

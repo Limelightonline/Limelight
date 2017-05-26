@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="default_head_blocks"/>
+    <body>
+        <!-- Theme XML -->
+            <!-- use module LayoutSwitcher. File header_layout_1.xml and header_layout_2.xml -->
+        <!-- Header Panel END -->
+
+        <referenceContainer name="main">
+            <container name="content.column.class" htmlTag="div" htmlClass="content-flex-column">
+                <container name="content.column" label="Main Content Area column"/>
+            </container>
+        </referenceContainer>
+
+        <!-- Footer -->
+            <!-- use module LayoutSwitcher. File footer_layout_1.xml and footer_layout_2.xml -->
+        <!-- Footer END -->
+
+    </body>
+</page>

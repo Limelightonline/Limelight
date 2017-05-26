@@ -1,0 +1,104 @@
+<?php
+/**
+ * NOTICE OF LICENSE
+ * This source file is subject to the General Public License (GPL 2.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/GPL-2.0
+ *
+ * DISCLAIMER
+ * Do not edit or add to this file if you wish to upgrade the module to newer
+ * versions in the future.
+ *
+ * @author Alexey Svistunov
+ * @copyright 2002-2016 TemplateMonster
+ * @license http://opensource.org/licenses/GPL-2.0 General Public License (GPL 2.0)
+ */
+
+/* @var \TemplateMonster\ImageZoom\Block\Product\View\Gallery $block */?>
+
+<?php
+$icon = $block->getLoadingIcon();
+$isString = is_string($block->getLoadingIcon());
+?>
+
+<div class="imagezoom">
+
+    <?php if($block->isShownLoadingIcon()): ?>
+        <div class="loadingMask">
+            <img class="loadingIcon" src="<?php echo $block->getLoadingIcon(); ?>" alt="">
+        </div>
+    <?php endif; ?>
+
+    <!--Main image placeholder-->
+    <div class="main-image-placeholder">
+
+        <?php foreach($block->getGalleryImages($block->getProduct()) as $key => $image): ?>
+
+            <?php
+            $activeClass = $image['isMain'] == true ? 'main' : 'hidden' ;
+            $zoomId = $image['isMain'] == true ? 'id="imagezoom-image" ' : '' ;
+            $isVideo = !empty($image['videoData']) ? 'video' : 'fancybox';
+            $isHidden = !empty($image['videoData']) ? 'display=none' : '';
+            ?>
+                <a class="<?php echo $activeClass ?> <?php echo $isVideo ?>"
+                   data-id="<?php echo $key ?>"
+                   rel="group"
+                   href="<?php echo $image['large']; ?>">
+
+                    <img class="zoom-img" <?php echo $zoomId ?>
+                         src="<?php echo $image['medium'] ?>"
+                         data-zoom-image="<?php echo $image['large'] ?>"
+                         style="<?php echo $isHidden ?>"
+                        />
+
+                    <?php
+                    // Render HTML for embedded video
+                    if(!empty($image['videoData'])):
+                        $videoData = $image['videoData'];
+                        $imageSize = $image['size']; ?>
+
+                        <div class="zoom-img">
+                            <?php if($videoData['host'] == 'youtube'): ?>
+<!--                                Youtube video -->
+                                <iframe id="frame<?php echo $key ?>" width="100%" src="https://www.youtube.com/embed/<?php echo $videoData['id']; ?>" frameborder="0" allowfullscreen></iframe>
+                            <?php elseif($videoData['host'] == 'vimeo'): ?>
+<!--                                Vimeo video -->
+                                <iframe id="frame<?php echo $key ?>" src="https://player.vimeo.com/video/<?php echo $videoData['id']; ?>?color=d4d4d4&title=0&byline=0&portrait=0&badge=0" width="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                </a>
+        <?php endforeach; ?>
+    </div>
+
+    <!--Image thumbnails-->
+    <div class="gallery-placeholder" id="imagezoom-gallery">
+        <?php
+            $gal = $block->getGalleryImages($block->getProduct());
+        ?>
+        <?php foreach($block->getGalleryImages($block->getProduct()) as $key => $image):
+            $activeClass = ($image['isMain'] == true) ? 'zoomGalleryActive' : '';
+            $isVideo = !empty($image['videoData']) ? 'video_thumb' : 'image_thumb';
+            ?>
+
+            <a href="#"
+               class="elevatezoom-gallery  <?php echo $activeClass; ?> <?php echo $isVideo; ?>"
+               data-id="<?php echo $key; ?>"
+               data-image="<?php echo $image['medium']; ?>"
+               data-zoom-image="<?php echo $image['large']; ?>">
+                <img src="<?php echo $image['small']; ?>" alt="" width="">
+            </a>
+
+        <?php endforeach; ?>
+    </div>
+
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "#imagezoom-image": {
+            "imageZoom": <?php echo $block->getImageZoomOptionsJson(); ?>
+        }
+    }
+</script>

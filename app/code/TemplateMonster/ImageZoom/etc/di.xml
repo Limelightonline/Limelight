@@ -1,0 +1,9 @@
+<config>
+    <type name="Magento\Catalog\Block\Product\View\Gallery">
+        <plugin name="image_zoom_gallery" type="TemplateMonster\ImageZoom\Plugin\Gallery"
+                sortOrder="99" disabled="false"/>
+    </type>
+
+    <preference for="Magento\Swatches\Block\Product\Renderer\Configurable"
+                type="TemplateMonster\ImageZoom\Block\Product\Renderer\Configurable" />
+</config>

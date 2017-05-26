@@ -1,0 +1,150 @@
+.catalog-image-grid {
+  border-bottom: 1px solid $theme-line-1;
+  padding-bottom: 49px;
+  margin-bottom: 102px;
+  //&.font_icon {
+  //  padding-bottom: 34px;
+  //}
+  @media (max-width: $screen-lg-min - 1) {
+    padding-bottom: 5px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: $screen-sm-min - 1) {
+    padding-bottom: 0;
+    margin-bottom: 50px;
+  }
+  &.last_widget {
+    margin-bottom: 0;
+  }
+  &.clear-style {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+}
+
+.category-grid {
+  > li {
+    @include make-col();
+    text-align: center;
+    margin-bottom: 22px;
+  }
+  .category-name {
+    font-size: 20px;
+    line-height: normal;
+    display: block;
+  }
+  .category-image {
+    display: block;
+    overflow: hidden;
+  }
+  // style thumbnail
+  &.thumbnail_image {
+    .category-name {
+      padding: 18px 0;
+    }
+    a {
+      display: block;
+      &:hover {
+        img {
+          transform: scale(1.03, 1.03) rotate(0.03deg);
+        }
+      }
+    }
+    img {
+      transition: all 0.3s ease;
+    }
+    &.row {
+      @media (max-width: $screen-xs-min - 1) {
+        li {
+          @include flex-basis(100%);
+          max-width: 100%;
+        }
+      }
+    }
+
+  }
+  // style icon
+  &.font_icon {
+    a {
+      display: inline-block;
+    }
+    i {
+      display: block;
+      margin-bottom: 19px;
+    }
+    li {
+      margin-bottom: 60px;
+    }
+    @media (max-width: $screen-md-min - 1) {
+      &.columns-6 > li {
+        flex-basis: 25%;
+        max-width: 25%;
+      }
+    }
+    @media (max-width: $screen-sm-min - 1) {
+      display: flex;
+      flex-wrap: wrap;
+      .category-icon::before {
+        font-size: 55px !important;
+      }
+      .category-name {
+        font-size: 14px;
+      }
+    }
+    @media (max-width: $screen-xs-min - 1) {
+      &.columns-6 > li {
+        flex-basis: 50%;
+        max-width: 50%;
+      }
+    }
+  }
+}
+
+.category-list {
+  @include make-flex;
+  li {
+
+  }
+  .grid-inner {
+    position: relative;
+    background: #fffde7;
+    &:hover {
+      .category-image {
+        opacity: 0.05;
+      }
+      .grid-wrapper {
+        opacity: 1;
+      }
+    }
+  }
+  .category-image {
+    display: block;
+    transition: all 0.3s ease;
+  }
+  .grid-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  .category-name {
+    display: block;
+    font-size: 35px;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 30px;
+  }
+  .category-button {
+    @include button-block;
+    @include button-block__primary;
+    padding: 19px 45px;
+  }
+  img {
+    width: 100%;
+  }
+}
